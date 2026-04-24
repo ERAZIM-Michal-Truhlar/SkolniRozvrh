@@ -1,11 +1,200 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="cs">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Hello World</title>
+  <title>Muj skolni rozvrh</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <h1>Hello world</h1>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-icon">
+          <span></span>
+        </div>
+        <div>
+          <p class="eyebrow">Skolni planner</p>
+          <h1>Muj skolni rozvrh</h1>
+        </div>
+      </div>
+
+      <nav class="main-nav">
+        <a href="#" class="nav-link">
+          <span>Prehled</span>
+        </a>
+        <a href="#" class="nav-link active">
+          <span>Rozvrh</span>
+        </a>
+        <a href="#" class="nav-link">
+          <span>Predmety</span>
+        </a>
+        <a href="#" class="nav-link">
+          <span>Ucitele</span>
+        </a>
+        <a href="#" class="nav-link">
+          <span>Mistnosti</span>
+        </a>
+        <a href="#" class="nav-link">
+          <span>Ukoly</span>
+        </a>
+        <a href="#" class="nav-link">
+          <span>Nastaveni</span>
+        </a>
+      </nav>
+
+      <div class="sidebar-card school-card">
+        <p class="school-title">Zakladni skola Komenskeho</p>
+        <p class="school-meta">2024/2025 - 2. pololeti</p>
+      </div>
+
+      <div class="sidebar-card user-card">
+        <div class="avatar">JN</div>
+        <div>
+          <p class="user-name">Jana Novakova</p>
+          <p class="user-role">Administrator</p>
+        </div>
+      </div>
+    </aside>
+
+    <main class="content">
+      <header class="topbar">
+        <label class="search-bar">
+          <input id="searchInput" type="search" placeholder="Hledat predmet, ucitele, mistnost...">
+        </label>
+
+        <div class="topbar-actions">
+          <button class="ghost-btn" type="button">Import</button>
+          <button class="ghost-btn" type="button">Export</button>
+          <button class="primary-btn" type="button">Pridat hodinu</button>
+        </div>
+      </header>
+
+      <section class="content-grid">
+        <div class="main-panel">
+          <div class="panel-header">
+            <div>
+              <p class="eyebrow">Tydenni plan</p>
+              <h2>Tydenni rozvrh</h2>
+            </div>
+
+            <div class="week-picker">
+              <button class="icon-btn" type="button" aria-label="Predchozi tyden">&#8249;</button>
+              <div class="week-range">19. - 23. kvetna 2025</div>
+              <button class="icon-btn" type="button" aria-label="Dalsi tyden">&#8250;</button>
+            </div>
+          </div>
+
+          <div class="schedule-board">
+            <div id="scheduleGrid" class="schedule-grid"></div>
+          </div>
+
+          <div class="bottom-widgets">
+            <section class="widget">
+              <h3>Dnesni vyuka</h3>
+              <ol id="todayList" class="today-list"></ol>
+            </section>
+
+            <section class="widget">
+              <h3>Nadchazejici zmeny</h3>
+              <div id="changesList" class="changes-list"></div>
+            </section>
+
+            <section class="widget">
+              <h3>Statistiky tydne</h3>
+              <div class="stats-layout">
+                <div class="donut-wrap">
+                  <div id="statsDonut" class="donut-chart"></div>
+                </div>
+                <div id="statsLegend" class="stats-legend"></div>
+              </div>
+            </section>
+          </div>
+        </div>
+
+        <aside class="side-panel">
+          <section class="side-card">
+            <div class="side-card-head">
+              <h3>Filtry</h3>
+            </div>
+
+            <label class="field">
+              <span>Trida</span>
+              <select id="classSelect">
+                <option value="8.A">8.A</option>
+              </select>
+            </label>
+
+            <label class="field">
+              <span>Obdobi</span>
+              <select>
+                <option>2. pololeti 2024/2025</option>
+              </select>
+            </label>
+          </section>
+
+          <section class="side-card">
+            <h3>Legenda predmetu</h3>
+            <div id="legendList" class="legend-list"></div>
+          </section>
+
+          <section class="side-card editor-card">
+            <div class="side-card-head">
+              <h3>Upravit hodinu</h3>
+              <button id="clearSelection" class="link-btn" type="button">Vymazat vyber</button>
+            </div>
+
+            <div id="editorEmpty" class="editor-empty">
+              Klikni na hodinu v rozvrhu a zobrazim jeji detail.
+            </div>
+
+            <form id="lessonForm" class="lesson-form hidden">
+              <div class="form-grid">
+                <label class="field">
+                  <span>Predmet</span>
+                  <input id="subjectField" type="text" readonly>
+                </label>
+
+                <label class="field">
+                  <span>Ucitel</span>
+                  <input id="teacherField" type="text" readonly>
+                </label>
+
+                <label class="field full">
+                  <span>Mistnost</span>
+                  <input id="roomField" type="text" readonly>
+                </label>
+
+                <label class="field">
+                  <span>Den</span>
+                  <input id="dayField" type="text" readonly>
+                </label>
+
+                <label class="field">
+                  <span>Cas</span>
+                  <input id="timeField" type="text" readonly>
+                </label>
+              </div>
+
+              <label class="checkbox-row">
+                <input checked type="checkbox" disabled>
+                <span>Opakovat kazdy tyden</span>
+              </label>
+
+              <div class="form-actions">
+                <button class="danger-btn" type="button">Smazat</button>
+                <div class="action-group">
+                  <button class="ghost-btn small" type="button">Zrusit</button>
+                  <button class="primary-btn small" type="button">Ulozit</button>
+                </div>
+              </div>
+            </form>
+          </section>
+        </aside>
+      </section>
+    </main>
+  </div>
+
+  <script src="script.js"></script>
 </body>
 </html>
